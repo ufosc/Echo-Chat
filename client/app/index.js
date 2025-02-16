@@ -17,11 +17,11 @@ const App = () => {
   // Apply a transparent navigation bar on Android
   useEffect(() => {
     if (Platform.OS === "android") {
-      NavigationBar.setVisibilityAsync("hidden"); // Hide navigation bar
-      NavigationBar.setBackgroundColorAsync("transparent"); // Fully transparent
-      NavigationBar.setBehaviorAsync("inset-swipe"); // Keeps navigation gestures
-      NavigationBar.setPositionAsync("absolute"); // Forces it off-screen
-      StatusBar.setHidden(true); // Hide status bar for full immersion
+      NavigationBar.setVisibilityAsync("hidden"); // hides navigation bar
+      NavigationBar.setBackgroundColorAsync("transparent"); //makes background space transparent
+      NavigationBar.setBehaviorAsync("inset-swipe"); // maintains navigation swiping
+      NavigationBar.setPositionAsync("absolute"); // force status bar off-screen
+      StatusBar.setHidden(true);  // hide status bar
     }
   }, []);
 
