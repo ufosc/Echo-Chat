@@ -1,12 +1,40 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, Dimensions } from "react-native";
+import { 
+  StyleSheet, 
+  Text, 
+  TouchableOpacity, 
+  Dimensions,
+  ActivityIndicator,
+  View 
+} from "react-native";
 
 import { LargeTextButtonProps } from "../../types/Props";
 
-const LargeTextButton: React.FC<LargeTextButtonProps> = ({ onPress, buttonText }) => {
+interface ExtendedLargeTextButtonProps extends LargeTextButtonProps {
+  loading?: boolean;
+}
+
+const LargeTextButton: React.FC<ExtendedLargeTextButtonProps> = ({ 
+  onPress, 
+  buttonText,
+  loading = false 
+}) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.button_text}>{buttonText}</Text>
+    <TouchableOpacity 
+      style={styles.button} 
+      onPress={onPress}
+      disabled={loading}
+    >
+      <View style={styles.contentContainer}>
+        <Text style={styles.button_text}>{buttonText}</Text>
+        {loading && (
+          <ActivityIndicator 
+            size="large"  
+            color="#FFFFFF"  
+            style={styles.spinner}
+          />
+        )}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -29,12 +57,21 @@ const styles = StyleSheet.create({
     },
     elevation: 2,
   },
-
+  contentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10  // Increased gap
+  },
   button_text: {
     color: "white",
     fontFamily: "Quicksand-Medium",
     fontSize: Dimensions.get("window").height * 0.027,
   },
+  spinner: {
+    height: Dimensions.get("window").height * 0.04,  
+    marginLeft: 8  
+  }
 });
 
 export default LargeTextButton;

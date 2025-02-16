@@ -35,9 +35,11 @@ const SignUpScreen = ({ navigation }: any) => {
   const [invalidPassword, invalidatePassword] = React.useState<boolean>(false);
   //grays out email on email error
   const [invalidEmail, invalidateEmail] = React.useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = React.useState(false);
+  
   const onHandleSubmit = async () => {
     Keyboard.dismiss();
+    
     // Check if password and confirm password match
     if (password !== confirmPassword) {
       const nonmatching_password_error: AuthenticationResponse = {
@@ -45,16 +47,21 @@ const SignUpScreen = ({ navigation }: any) => {
       };
       invalidatePassword(true);
       setAuthResponse(nonmatching_password_error);
-
       return;
     }
-
-    setAuthResponse(await appSignUp(email, password));
-
-    if (authResponse?.user) {
-      console.log("User Logged IN!");
-    } else if (authResponse?.error) {
-      console.log(authResponse.error);
+  
+    setIsLoading(true);
+    try {
+      const response = await appSignUp(email, password);
+      setAuthResponse(response);
+      
+      if (response?.user) {
+        console.log("User Logged IN!");
+      } else if (response?.error) {
+        console.log(response.error);
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -117,7 +124,10 @@ const SignUpScreen = ({ navigation }: any) => {
             />
           </View>
           <View style={styles.button_container}>
-            <LargeTextButton onPress={onHandleSubmit} buttonText="Sign Up" />
+          <LargeTextButton 
+            onPress={onHandleSubmit} 
+            buttonText="Sign Up" 
+            loading={isLoading} />
           </View>
 
           <View style={styles.divider_container}>

@@ -33,12 +33,20 @@ const LoginScreen = ({ route, navigation }: any) => {
   const [authResponse, setAuthResponse] =
     React.useState<AuthenticationResponse>();
   const [invalidLogin, invalidateLogin] = React.useState<boolean>(false); // Possbily change this?
+  const [isLoading, setIsLoading] = React.useState(false);  // Add this at the top with other state declarations
 
-  // Sign in function with email and password
-  const onHandleSubmit = async () => {
+const onHandleSubmit = async () => {
     Keyboard.dismiss();
-    setAuthResponse(await appSignIn(email, password));
-  };
+    setIsLoading(true);
+    try {
+        const response = await appSignIn(email, password);
+        setAuthResponse(response);
+    } catch (error) {
+        console.error("Error during sign in:", error);
+    } finally {
+        setIsLoading(false);
+    }
+};
 
   // Listens for the response from the sign in function
   useEffect(() => {
@@ -101,7 +109,10 @@ const LoginScreen = ({ route, navigation }: any) => {
             />
           </View>
           <View style={styles.button_container}>
-            <LargeTextButton onPress={onHandleSubmit} buttonText="Login" />
+          <LargeTextButton 
+           onPress={onHandleSubmit} 
+           buttonText="Login" 
+           loading={isLoading} />
           </View>
           <TouchableOpacity>
             <Text
