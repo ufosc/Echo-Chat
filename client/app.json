@@ -22,6 +22,12 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "androidNavigationBar": {
+      "backgroundColor": "transparent",
+      "barStyle": "light-content",
+      "position": "absolute",
+      "visible": "sticky-immersive"
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -34,7 +40,8 @@
           "locationAlwaysAndWhenInUsePermission": "Allow OSC Proximity Chat to access your location."
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-navigation-bar"
     ]
   }
 }
