@@ -23,9 +23,8 @@
       }
     },
     "androidNavigationBar": {
-      "backgroundColor": "transparent",
+      "backgroundColor": "#00000000",
       "barStyle": "light-content",
-      "position": "absolute",
       "visible": "sticky-immersive"
     },
     "web": {
