@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   View,
-  Text,
   StyleSheet,
   Dimensions,
 } from "react-native";
