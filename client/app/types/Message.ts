@@ -1,6 +1,7 @@
 import { LocationType } from "./Location";
 
 export interface Message {
+  id: string,
   author: string,
   timestamp: number,
   content: {
