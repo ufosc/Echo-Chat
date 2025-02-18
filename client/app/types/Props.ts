@@ -28,7 +28,7 @@ export type MessageProps = {
 
 export type MessageChannelProps = {
   nearbyUsers: { [uid: string]: UserProfile };
-  messages: Message[];
+  messages: Map<string, Message>;
 };
 
 export type SafeAreaWrapperProps = {
