@@ -23,7 +23,7 @@
 ---
 
 ## Overview
-Echo is an innovative messaging app that lets you connect with strangers within a specific geo-radius, enabling time and location-relevant chats; ideal for environments like lecture halls, libraries, or public events. With real-time messaging that doesn’t store conversations on servers, Echo emulates the spontaneity of in-person discussions. This repository is open to community collaboration and is divided into the frontend and backend.
+Echo is an innovative messaging app that lets you connect with strangers within a specific geo-radius, enabling time and location-relevant chats; ideal for environments like lecture halls, libraries, or public events. With real-time messaging that doesn’t store conversations on servers, Echo emulates the spontaneity of in-person conversations. This repository is open to community collaboration, and is divided into the frontend (React Native mobile app) and backend (Node.js server).
 
 ## Features
 - **Real-Time Messaging:** Engage in instant conversations.
