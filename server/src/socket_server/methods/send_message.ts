@@ -36,7 +36,7 @@ export const sendMessage = (
     seen.add(recipient.uid);
 
     recipient.socket.emit("message", message);
-    console.log("[WS] Sent message to user <" + recipient.uid + ">");
+    console.log(`[WS] Sent message to user <${recipient.uid}>`);
   }
 
   if (ack) ack("success");

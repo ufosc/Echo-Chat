@@ -76,6 +76,13 @@ export const sendMessage = (
   socket: Socket,
   message: Message,
 ) => {
+  if (!socket.connected) {
+    console.error(
+      `Cannot send message "${message.content.text}" (socket not connected)`
+    );
+    return;
+  }
+  console.log(`Sending message "${message.content.text}" on socket ${socket.id} (${socket.active})`);
   socket.emit("sendMessage", message,
     (ack: string) => {
       console.log("sendMessage ack:", ack);

@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   View,
-  Text,
   StyleSheet,
   Dimensions,
 } from "react-native";
@@ -35,7 +34,7 @@ const ChatScreen = () => {
   // Note: To prevent complexity, all user information is grabbed from different contexts and services. If we wanted most information inside of UserContext, we would have to import contexts within contexts and have state change as certain things mount, which could cause errors that are difficult to pinpoint.
 
   // Message loading and sending logic
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Map<string, Message>>(new Map());
   const [messageContent, setMessageContent] = useState<string>("");
 
   useEffect(() => {
@@ -50,7 +49,11 @@ const ChatScreen = () => {
         );
         await refreshNearbyUsers(socket);
       }
-      setMessages((prevMessages) => [...prevMessages, message]);
+      setMessages((prevMessages) => {
+        const newMessages = new Map(prevMessages);
+        newMessages.set(message.id, message);
+        return newMessages;
+      });
       if (ack) console.log("Server acknowledged message:", ack);
     };
 
@@ -67,9 +70,9 @@ const ChatScreen = () => {
     if (socket === null) return;
 
     const newMessage: Message = {
+      id: Crypto.randomUUID(),
       author: String(userAuth.userAuthInfo?.uid),
-      //msgId: Crypto.randomUUID(),
-      timestamp: -1, // timestamp will be overridden by socket server
+      timestamp: Date.now(), // timestamp will be overridden by server
       content: { text: messageContent.trim() },
       location: {
         lat: Number(location?.lat),
@@ -78,9 +81,17 @@ const ChatScreen = () => {
       replyTo: undefined,
       reactions: {},
     };
+    console.log(`[LOG] New message: ${newMessage.author
+      } - ${newMessage.content.text} (${newMessage.id})`);
     sendMessage(socket, newMessage);
 
     setMessageContent("");
+    // Optimistic UI update for testing when socket server isn't working
+    // setMessages((prevMessages) => {
+    //   const newMessages = new Map(prevMessages);
+    //   newMessages.set(newMessage.id, newMessage);
+    //   return newMessages;
+    // });
   };
 
   return (

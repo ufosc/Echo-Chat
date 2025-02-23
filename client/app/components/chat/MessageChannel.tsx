@@ -5,14 +5,16 @@ import Message from "./ChatMessage";
 import { MessageChannelProps } from "../../types/Props";
 import { TouchableOpacity } from "react-native";
 import SheetModal from "./SheetModal";
+import { UserProfile } from "../../types/User";
 
 const MessageChannel: React.FC<MessageChannelProps> = ({
   nearbyUsers,
   messages,
 }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const reverseMessages = [...messages].reverse();
 
+  const messagesArray = Array.from(messages.values())
+                             .sort((a, b) => b.timestamp - a.timestamp);
 
   const handleLongPress = () => {
     setModalVisible(true);
@@ -28,11 +30,17 @@ const MessageChannel: React.FC<MessageChannelProps> = ({
       contentContainerStyle={{
         width: "100%",
       }}
-      data={reverseMessages}
+      data={messagesArray}
       renderItem={({ item }) => {
-        const user = nearbyUsers[item.author];
-        // console.log(nearbyUsers);
-        if (user === undefined) return null;
+        const user: UserProfile = nearbyUsers[item.author];
+        // Mock data for testing when socket server isn't working
+        // const user: UserProfile = { displayName: "You", profilePicture: 1 };
+        if (user === undefined) {
+          console.log(
+            `Message recieved from user not in nearbyUsers (${item.author})`
+          );
+          return null;
+        }
         return (
           <TouchableOpacity onLongPress={ handleLongPress }>
           <Message
