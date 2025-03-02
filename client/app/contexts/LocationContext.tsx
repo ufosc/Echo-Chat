@@ -37,7 +37,7 @@ export const LocationProvider = ({
   setLocationCallback = undefined;
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: number;
 
     const startLocationTracking = async () => {
       const hasPermission = await checkLocationPermission(); // Use permission service
