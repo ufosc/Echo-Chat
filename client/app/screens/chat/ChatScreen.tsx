@@ -26,7 +26,7 @@ import {
 const ChatScreen = () => {
   const settings = useSettings();
   const screenHeight = Dimensions.get("window").height;
-  const keyboardBehavior = Platform.OS === "ios" ? "padding" : undefined;
+  const keyboardBehavior = Platform.OS === "ios" ? "padding" : "height";
   const socket = useSocket();
   const location = useLocation();
   const nearbyUsers = useNearbyUsers();
