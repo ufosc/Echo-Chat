@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
 import * as React from "react";
 
 import { LocationProvider } from "../contexts/LocationContext";
@@ -25,7 +25,7 @@ const AppNavigator = () => {
                   tabBarLabelStyle: {
                     fontSize: 15,
                   },
-                  tabBarHideOnKeyboard: true,
+                  tabBarHideOnKeyboard: Platform.OS !== "android",
                 }}>
                 <Tab.Screen
                   name="Chat"
