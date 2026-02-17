@@ -101,6 +101,7 @@ const ChatScreen = () => {
           settings && settings.theme !== "light" ? "#191d20" : "white", // Needs to be changed to be a prop later (new issue?)
       }}>
       <KeyboardAvoidingView
+        style={{ flex: 1 }}
         behavior={keyboardBehavior}
         keyboardVerticalOffset={
           Platform.OS === "ios" ? screenHeight * 0.055 : 0
